@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<package>
+	<metadata>
+	   <id>AzureBlobSearchHelper</id>
+	   <version>1.0.0.0</version>
+	   <title>Helper class for storeing meta data and files and running queries against them using azure blob store and search services</title>
+	   <authors>Anthony Baxter</authors>
+	   <owners>Anthony Baxter</owners>
+	   <requireLicenseAcceptance>false</requireLicenseAcceptance>
+	   <description>Helper for storing files and metadata in blob storage and searching an index created over them</description>
+	   <summary>It is referencable by all >=.NET45 clients, including WindowsStore and Phone</summary>
+	   <dependencies>
+	    <group targetFramework ="net">
+		 </group>
+		 <group targetFramework ="win">
+		 </group>
+		 <group targetFramework ="wp">
+		 </group>
+		 <group targetFramework ="wpa">
+		 </group>
+		 <group targetFramework ="MonoAndroid">
+		 </group>
+		 <group targetFramework ="MonoTouch">
+		 </group>
+		 <group targetFramework ="Xamarin.iOS">
+		 </group>
+		 <group targetFramework ="portable-net45+win8+wpa81+wp8">
+		 </group>
+		 <group targetFramework ="uap">
+		 </group>
+		 <group targetFramework ="dotnet">
+		 </group>
+	   </dependencies>
+	</metadata>
+</package>
