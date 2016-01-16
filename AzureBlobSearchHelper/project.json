@@ -3,7 +3,6 @@
   "dependencies": {
     "Microsoft.Azure.Search": "0.13.0-preview",
     "NuGet.CommandLine": "3.3.0",
-    "NuSpec.ReferenceGenerator": "1.4.2",
     "WindowsAzure.Storage": "6.2.2-preview"
   },
   "frameworks": {
