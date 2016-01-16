@@ -11,6 +11,10 @@ if not "%PackageVersion%" == "" (
 
 set nunit="packages\NUnit.Console.3.0.1\tools\nunit3-console.exe"
 
+REM Package restore
+call %NuGet% restore AzureBlobSearchHelper\packages.config -OutputDirectory %cd%\packages -NonInteractive
+call %NuGet% restore AzureBlobSearchHelper.Tests\packages.config -OutputDirectory %cd%\packages -NonInteractive
+	
 REM Build
 %WINDIR%\Microsoft.NET\Framework\v4.0.30319\msbuild AzureBlobSearchHelper.sln /p:Configuration="%config%" /m /v:M /fl /flp:LogFile=msbuild.log;Verbosity=Normal /nr:false
 if not "%errorlevel%"=="0" goto failure
