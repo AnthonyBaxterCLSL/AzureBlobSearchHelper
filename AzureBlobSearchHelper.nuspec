@@ -20,6 +20,7 @@
 			<dependency id="System.Runtime" version="4.0.10" />
 			<dependency id="System.Threading.Tasks" version="4.0.0" />
 			<dependency id="WindowsAzure.Storage" version="6.2.2-preview" />
+      <dependency id="Microsoft.Azure.Search" version="0.13.0-preview"/>
 	  </group>
       <group targetFramework="win"></group>
       <group targetFramework="wp"></group>
