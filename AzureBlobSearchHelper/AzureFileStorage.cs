@@ -60,6 +60,12 @@ namespace AzureBlobSearchHelper
 
         }
 
+        private void what()
+        {
+            var s = new AzureSearchClient("casedocuments", "0E9D730E823FC5D34A587DC9D69A08B3", "casedocuments");
+            
+        }
+
         public async Task<bool> TrySaveItemAsync(T item)
         {
             ICloudBlockBlob blockBlob = _container.GetBlockBlobReference(GetName(item));
@@ -76,6 +82,7 @@ namespace AzureBlobSearchHelper
         public async Task<T> GetMetaItemAsync(string name)
         {
             var ret = new T();
+            
             var br = _container.GetBlobReference(name);
             await br.FetchAttributesAsync();
 
@@ -88,7 +95,7 @@ namespace AzureBlobSearchHelper
                     prop.SetValue(ret, keyValuePair.Value);
                 else if (prop.PropertyType == typeof(int))
                     prop.SetValue(ret, int.Parse(keyValuePair.Value));
-                else if (prop.PropertyType == typeof(DateTime))
+                else if (prop.PropertyType == typeof(DateTime) || prop.PropertyType == typeof(DateTime?))
                     prop.SetValue(ret, DateTime.Parse(keyValuePair.Value));
                 else if (prop.PropertyType == typeof(bool))
                     prop.SetValue(ret, bool.Parse(keyValuePair.Value));

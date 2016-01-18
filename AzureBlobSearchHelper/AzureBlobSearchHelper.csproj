@@ -33,7 +33,6 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-
   <ItemGroup>
     <Reference Include="Hyak.Common, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Hyak.Common.1.0.2\lib\net45\Hyak.Common.dll</HintPath>
@@ -112,13 +111,14 @@
       <Private>True</Private>
     </Reference>
   </ItemGroup>
-  
   <ItemGroup>
     <!-- A reference to the entire .NET Framework is automatically included -->
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AzureFileStorage.cs" />
+    <Compile Include="AzureSearchClient.cs" />
+    <Compile Include="ICloudBlob.cs" />
     <Compile Include="ICloudBlobContainer.cs" />
     <Compile Include="ICloudBlockBlob.cs" />
     <Compile Include="MetaAttributes.cs" />
@@ -129,7 +129,7 @@
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-   </Target>
+  </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
@@ -137,4 +137,12 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <Target Name="AfterBuild">
+    <Copy SkipUnchangedFiles="true" SourceFiles="bin\$(Configuration)\AzureBlobSearchHelper.dll" DestinationFiles="bin\$(Configuration)\nupkg\lib\dotnet\AzureBlobSearchHelper.dll" />
+    <Copy SkipUnchangedFiles="true" SourceFiles="bin\$(Configuration)\AzureBlobSearchHelper.pdb" DestinationFiles="bin\$(Configuration)\nupkg\lib\dotnet\AzureBlobSearchHelper.pdb" />
+    <Copy SkipUnchangedFiles="true" SourceFiles="bin\$(Configuration)\AzureBlobSearchHelper.dll" DestinationFiles="bin\$(Configuration)\nupkg\lib\portable-net45+win8+wpa81+wp8\AzureBlobSearchHelper.dll" />
+    <Copy SkipUnchangedFiles="true" SourceFiles="bin\$(Configuration)\AzureBlobSearchHelper.pdb" DestinationFiles="bin\$(Configuration)\nupkg\lib\portable-net45+win8+wpa81+wp8\AzureBlobSearchHelper.pdb" />
+    <Copy SkipUnchangedFiles="true" SourceFiles="..\AzureBlobSearchHelper.nuspec" DestinationFiles="bin\$(Configuration)\nupkg\AzureBlobSearchHelper.nuspec" />
+    <Exec Command="..\..\..\..\packages\NuGet.CommandLine.3.3.0\tools\nuget.exe pack AzureBlobSearchHelper.nuspec -OutputDirectory .." WorkingDirectory="bin\$(Configuration)\nupkg" Outputs="bin\ $(Configuration)\*.nupkg" />
+  </Target>
 </Project>

@@ -11,7 +11,7 @@ namespace AzureBlobSearchHelper
     {
         Task<bool> CreateIfNotExistsAsync();
         ICloudBlockBlob GetBlockBlobReference(string blobName);
-        CloudBlob GetBlobReference(string blobName);
+        ICloudBlob GetBlobReference(string blobName);
     }
 
 
@@ -33,9 +33,9 @@ namespace AzureBlobSearchHelper
             return new CloudBlockBlobWrapper( _actualContainer.GetBlockBlobReference                                    (blobName));
         }
 
-        public CloudBlob GetBlobReference(string blobName)
+        public ICloudBlob GetBlobReference(string blobName)
         {
-            return _actualContainer.GetBlobReference(blobName);
+            return new CloudBlobWrapper(_actualContainer.GetBlobReference(blobName));
         }
 
     }
