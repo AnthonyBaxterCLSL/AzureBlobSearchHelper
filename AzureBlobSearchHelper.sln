@@ -8,6 +8,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{97E7B17F-5E05-43C6-91C5-173E5E489672}"
 	ProjectSection(SolutionItems) = preProject
 		AzureBlobSearchHelper.nuspec = AzureBlobSearchHelper.nuspec
+		README.md = README.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureBlobSearchHelper.Tests", "AzureBlobSearchHelper.Tests\AzureBlobSearchHelper.Tests.csproj", "{789B831A-79F0-495C-AED9-3B0C4A8F86E2}"
