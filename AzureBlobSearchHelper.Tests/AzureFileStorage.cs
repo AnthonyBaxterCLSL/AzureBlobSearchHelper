@@ -19,6 +19,15 @@ namespace AzureBlobSearchHelper.Tests
             ThirdValue
         }
 
+        private class ValidTestObjectGuidId
+        {
+            [MetaName]
+            public Guid Id { get; set; }
+
+            [MetaData]
+            public string Description { get; set; }
+        }
+
         private class ValidTestObject
         {
             [MetaName]
@@ -62,12 +71,19 @@ namespace AzureBlobSearchHelper.Tests
 
             blockBlob.SetupGet(bb => bb.Metadata).Returns(meta);
             blob.SetupGet(bb => bb.Metadata).Returns(meta);
+            blob.Setup(cloudBlob => cloudBlob.ExistsAsync())
+                .ReturnsAsync(true);
+            
+            
+            
 
             cont.Setup(container => container.GetBlockBlobReference(blobName))
                 .Returns(blockBlob.Object);
 
             cont.Setup(container => container.GetBlobReference(blobName))
                 .Returns(blob.Object);
+
+            
 
             return cont;
         }
@@ -117,6 +133,20 @@ namespace AzureBlobSearchHelper.Tests
         }
 
         [Test]
+        public async Task WhenRetrievingObject_HasOriginalKeyValue()
+        {
+            var t = new ValidTestObject() { Name = "StringMapTest", Description = "TestString" };
+
+
+            var helper = new AzureFileStorage<ValidTestObject>(GetMetaContainer(t.Name).Object, emptyByteFunc);
+            await helper.TrySaveItemAsync(t);
+
+            var res = await helper.GetMetaItemAsync(t.Name);
+
+            Assert.AreEqual("StringMapTest", res.Name);
+        }
+
+        [Test]
         public async Task WhenRetrievingObject_HasOriginalIntValue()
         {
             var t = new ValidTestObject() {Name = "IntMapTest", SomeInt = 42};
@@ -149,7 +179,6 @@ namespace AzureBlobSearchHelper.Tests
 
             var res = await helper.GetMetaItemAsync(t.Name);
             Assert.AreEqual(new DateTime(2010, 6, 12), res.SomeNullableDateTime);
-
         }
 
         [Test]
@@ -161,6 +190,18 @@ namespace AzureBlobSearchHelper.Tests
 
             var res = await helper.GetMetaItemAsync(t.Name);
             Assert.AreEqual(TestEnum.SecondValue, res.SomeEnum);
-        } 
+        }
+
+        [Test]
+        public async Task WhenRetrievingObjectGuidId_HasId()
+        {
+            var t = new ValidTestObjectGuidId() {Description = "GuidIdObject", Id = Guid.NewGuid()};
+            var helper = new AzureFileStorage<ValidTestObjectGuidId>(GetMetaContainer(t.Id.ToString()).Object, id => new byte[0]);
+
+            await helper.TrySaveItemAsync(t);
+
+            var res = await helper.GetMetaItemAsync(t.Id.ToString());
+            Assert.AreEqual(t.Id, res.Id);
+        }
     }
 }

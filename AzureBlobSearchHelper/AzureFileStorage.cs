@@ -60,10 +60,15 @@ namespace AzureBlobSearchHelper
 
         }
 
-        private void what()
+        private void SetName(T item, string name)
         {
-            var s = new AzureSearchClient("casedocuments", "0E9D730E823FC5D34A587DC9D69A08B3", "casedocuments");
-            
+            var propInfo = typeof(T).GetRuntimeProperties()
+                .First(info => info.GetCustomAttributes(typeof(MetaNameAttribute), false).Any());
+
+            if (propInfo.PropertyType == typeof (string))
+                propInfo.SetValue(item, name);
+            else if (propInfo.PropertyType == typeof (Guid))
+                propInfo.SetValue(item, Guid.Parse(name));
         }
 
         public async Task<bool> TrySaveItemAsync(T item)
@@ -81,10 +86,17 @@ namespace AzureBlobSearchHelper
 
         public async Task<T> GetMetaItemAsync(string name)
         {
-            var ret = new T();
-            
+           
+
             var br = _container.GetBlobReference(name);
+
+
+            if (!await br.ExistsAsync())
+                return default(T);
+
+            var ret = new T();
             await br.FetchAttributesAsync();
+            SetName(ret, name);
 
             foreach (var keyValuePair in br.Metadata)
             {

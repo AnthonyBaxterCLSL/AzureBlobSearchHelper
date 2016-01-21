@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AzureBlobSearchHelper</id>
-    <version>1.0.2-preview</version>
+    <version>0.1.1-preview</version>
     <title>Helper class for storing meta data and files and running queries against them using azure blob store and search services</title>
     <authors>Anthony Baxter</authors>
     <owners>Anthony Baxter</owners>
@@ -40,6 +40,7 @@
         <dependency id="System.Runtime" version="4.0.10" />
         <dependency id="System.Threading.Tasks" version="4.0.0" />
         <dependency id="WindowsAzure.Storage" version="6.2.2-preview" />
+        <dependency id="Microsoft.Azure.Search" version="0.13.0-preview"/>
       </group>
     </dependencies>
   </metadata>
