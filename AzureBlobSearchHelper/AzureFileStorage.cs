@@ -15,6 +15,7 @@ namespace AzureBlobSearchHelper
         private class PropMap
         {
             public Type Type { get; set; }
+            public object OriginalValue { get; set; }
 
             public string Value { get; set; }
         }
@@ -44,10 +45,20 @@ namespace AzureBlobSearchHelper
 
         private Dictionary<string, PropMap> GetMetaData(T item)
         {
-            return typeof(T).GetRuntimeProperties()
+            var ret =  typeof(T).GetRuntimeProperties()
                 .Where(info => info.GetCustomAttributes(typeof(MetaDataAttribute), false).Any())
-                .ToDictionary(info => info.Name, info => new PropMap() { Type = info.PropertyType, Value = (info.GetValue(item) ?? "").ToString() });
+                .ToDictionary(info => info.Name, info => new PropMap() { Type = info.PropertyType,  OriginalValue = info.GetValue(item) });
 
+            foreach (var keyValuePair in ret)
+            {
+                if (keyValuePair.Value.Type == typeof (DateTime))
+                    keyValuePair.Value.Value =
+                        ((DateTime) keyValuePair.Value.OriginalValue).ToUniversalTime().ToString();
+                else
+                    keyValuePair.Value.Value = (keyValuePair.Value.OriginalValue ?? "").ToString();
+            }
+
+            return ret;
         }
 
         private string GetName(T item)
@@ -108,7 +119,7 @@ namespace AzureBlobSearchHelper
                 else if (prop.PropertyType == typeof(int))
                     prop.SetValue(ret, int.Parse(keyValuePair.Value));
                 else if (prop.PropertyType == typeof(DateTime) || prop.PropertyType == typeof(DateTime?))
-                    prop.SetValue(ret, DateTime.Parse(keyValuePair.Value));
+                    prop.SetValue(ret, DateTime.Parse(keyValuePair.Value).ToLocalTime());
                 else if (prop.PropertyType == typeof(bool))
                     prop.SetValue(ret, bool.Parse(keyValuePair.Value));
             }
