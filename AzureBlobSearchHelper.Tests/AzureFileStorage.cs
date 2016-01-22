@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Hyak.Common;
 using Microsoft.WindowsAzure.Storage.Blob;
 using Moq;
 using NUnit.Framework;
@@ -11,7 +12,7 @@ namespace AzureBlobSearchHelper.Tests
     [TestFixture]
     public class AzureFileStorage
     {
-
+        Dictionary<string, string> meta = new Dictionary<string, string>();
         private enum TestEnum
         {
             FirstValue,
@@ -63,7 +64,7 @@ namespace AzureBlobSearchHelper.Tests
 
         private Mock<ICloudBlobContainer> GetMetaContainer(string blobName)
         {
-            Dictionary<string, string> meta = new Dictionary<string, string>();
+           meta = new Dictionary<string, string>();
 
             var cont = new Mock<ICloudBlobContainer>();
             var blockBlob = new Mock<ICloudBlockBlob>();
@@ -180,6 +181,39 @@ namespace AzureBlobSearchHelper.Tests
             var res = await helper.GetMetaItemAsync(t.Name);
             Assert.AreEqual(new DateTime(2010, 6, 12), res.SomeNullableDateTime);
         }
+
+        [Test]
+        public async Task WhenStoringObjectDateTimeMin_LeavesMetaEmpty()
+        {
+            var t = new ValidTestObject() { Name = "StoreDateTimeMinTest", SomeDateTime = DateTime.MinValue };
+            var helper = new AzureFileStorage<ValidTestObject>(GetMetaContainer(t.Name).Object, emptyByteFunc);
+            await helper.TrySaveItemAsync(t);
+            Assert.IsFalse( meta.ContainsKey("meta_SomeDateTime"));
+
+        }
+        [Test]
+        public async Task WhenRetrievingObjectDateTimeMin_ObjectDateTimeMin()
+        {
+            var t = new ValidTestObject() { Name = "RetDateTimeMinTest", SomeDateTime = DateTime.MinValue };
+            var helper = new AzureFileStorage<ValidTestObject>(GetMetaContainer(t.Name).Object, emptyByteFunc);
+            await helper.TrySaveItemAsync(t);
+
+            var o = await helper.GetMetaItemAsync(t.Name);
+            Assert.AreEqual(DateTime.MinValue, o.SomeDateTime);
+
+        }
+        [Test]
+        public async Task WhenRetrievingObjectDateTimeNull_ObjectDateTimeNull()
+        {
+            var t = new ValidTestObject() { Name = "DateTimeNullTest", SomeNullableDateTime = null};
+            var helper = new AzureFileStorage<ValidTestObject>(GetMetaContainer(t.Name).Object, emptyByteFunc);
+            await helper.TrySaveItemAsync(t);
+            Assert.IsFalse(meta.ContainsKey("meta_SomeNullableDateTime"));
+            var o = await helper.GetMetaItemAsync(t.Name);
+            Assert.AreEqual(null, o.SomeNullableDateTime);
+
+        }
+
 
         [Test]
         public async Task WhenRetrievingObject_HasOriginalEnumValue()

@@ -45,20 +45,34 @@ namespace AzureBlobSearchHelper
 
         private Dictionary<string, PropMap> GetMetaData(T item)
         {
-            var ret =  typeof(T).GetRuntimeProperties()
-                .Where(info => info.GetCustomAttributes(typeof(MetaDataAttribute), false).Any())
-                .ToDictionary(info => info.Name, info => new PropMap() { Type = info.PropertyType,  OriginalValue = info.GetValue(item) });
+            var ret = typeof (T).GetRuntimeProperties()
+                .Where(info => info.GetCustomAttributes(typeof (MetaDataAttribute), false).Any())
+                .Select(info =>new
+                        {
+                            name = info.Name,
+                            prop = new PropMap() {Type = info.PropertyType, OriginalValue = info.GetValue(item)}
+                        })
+                .Where(pair => pair.prop.OriginalValue != null)
+                .ToDictionary(arg => arg.name, a => a.prop);
+                
 
             foreach (var keyValuePair in ret)
             {
-                if (keyValuePair.Value.Type == typeof (DateTime) || keyValuePair.Value.Type==typeof(DateTime?))
-                    keyValuePair.Value.Value =
-                        ((DateTime) keyValuePair.Value.OriginalValue).ToUniversalTime().ToFileTime().ToString();
+                if (keyValuePair.Value.Type == typeof (DateTime))
+                {
+                    var val = ((DateTime) keyValuePair.Value.OriginalValue);
+                    if(val!=DateTime.MinValue)
+                        keyValuePair.Value.Value = val.ToUniversalTime().ToFileTime().ToString();
+                }
+                else if (keyValuePair.Value.Type == typeof (DateTime?))
+                    keyValuePair.Value.Value = ((DateTime) keyValuePair.Value.OriginalValue).ToUniversalTime().ToFileTime().ToString();
+                
                 else
                     keyValuePair.Value.Value = (keyValuePair.Value.OriginalValue ?? "").ToString();
             }
 
-            return ret;
+            return ret.Where(v => !string.IsNullOrEmpty(v.Value.Value)).ToDictionary(a => a.Key, b => b.Value);
+            
         }
 
         private string GetName(T item)
