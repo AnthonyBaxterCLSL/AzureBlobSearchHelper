@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>AzureBlobSearchHelper</id>
-    <version>0.1.2-preview</version>
+    <version>0.1.3-preview</version>
     <title>Helper class for storing meta data and files and running queries against them using azure blob store and search services</title>
     <authors>Anthony Baxter</authors>
     <owners>Anthony Baxter</owners>
