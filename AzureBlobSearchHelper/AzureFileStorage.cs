@@ -53,7 +53,7 @@ namespace AzureBlobSearchHelper
             {
                 if (keyValuePair.Value.Type == typeof (DateTime))
                     keyValuePair.Value.Value =
-                        ((DateTime) keyValuePair.Value.OriginalValue).ToUniversalTime().ToString();
+                        ((DateTime) keyValuePair.Value.OriginalValue).ToUniversalTime().ToFileTime().ToString();
                 else
                     keyValuePair.Value.Value = (keyValuePair.Value.OriginalValue ?? "").ToString();
             }
@@ -119,7 +119,7 @@ namespace AzureBlobSearchHelper
                 else if (prop.PropertyType == typeof(int))
                     prop.SetValue(ret, int.Parse(keyValuePair.Value));
                 else if (prop.PropertyType == typeof(DateTime) || prop.PropertyType == typeof(DateTime?))
-                    prop.SetValue(ret, DateTime.Parse(keyValuePair.Value).ToLocalTime());
+                    prop.SetValue(ret, DateTime.FromFileTime(long.Parse(keyValuePair.Value)));
                 else if (prop.PropertyType == typeof(bool))
                     prop.SetValue(ret, bool.Parse(keyValuePair.Value));
             }
