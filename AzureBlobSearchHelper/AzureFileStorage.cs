@@ -51,7 +51,7 @@ namespace AzureBlobSearchHelper
 
             foreach (var keyValuePair in ret)
             {
-                if (keyValuePair.Value.Type == typeof (DateTime))
+                if (keyValuePair.Value.Type == typeof (DateTime) || keyValuePair.Value.Type==typeof(DateTime?))
                     keyValuePair.Value.Value =
                         ((DateTime) keyValuePair.Value.OriginalValue).ToUniversalTime().ToFileTime().ToString();
                 else
