@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureBlobSearchHelper", "AzureBlobSearchHelper\AzureBlobSearchHelper.csproj", "{0A61A2E0-4D71-4539-81A8-F9BBF7167FDB}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{97E7B17F-5E05-43C6-91C5-173E5E489672}"
 	ProjectSection(SolutionItems) = preProject
 		AzureBlobSearchHelper.nuspec = AzureBlobSearchHelper.nuspec
@@ -13,22 +11,27 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureBlobSearchHelper.Tests", "AzureBlobSearchHelper.Tests\AzureBlobSearchHelper.Tests.csproj", "{789B831A-79F0-495C-AED9-3B0C4A8F86E2}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AzureBlobSearchHelper", "AzureBlobSearchHelperPackage\AzureBlobSearchHelper.csproj", "{DBE9E5C3-2577-49FA-884F-4D3B29B1FF0E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{0A61A2E0-4D71-4539-81A8-F9BBF7167FDB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{0A61A2E0-4D71-4539-81A8-F9BBF7167FDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{0A61A2E0-4D71-4539-81A8-F9BBF7167FDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{0A61A2E0-4D71-4539-81A8-F9BBF7167FDB}.Release|Any CPU.Build.0 = Release|Any CPU
 		{789B831A-79F0-495C-AED9-3B0C4A8F86E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{789B831A-79F0-495C-AED9-3B0C4A8F86E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{789B831A-79F0-495C-AED9-3B0C4A8F86E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{789B831A-79F0-495C-AED9-3B0C4A8F86E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DBE9E5C3-2577-49FA-884F-4D3B29B1FF0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DBE9E5C3-2577-49FA-884F-4D3B29B1FF0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DBE9E5C3-2577-49FA-884F-4D3B29B1FF0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DBE9E5C3-2577-49FA-884F-4D3B29B1FF0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(CodealikeProperties) = postSolution
+		SolutionGuid = 22441c88-03a8-48f9-86f7-2e6dd25aa053
 	EndGlobalSection
 EndGlobal

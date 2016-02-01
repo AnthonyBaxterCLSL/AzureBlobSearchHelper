@@ -130,6 +130,7 @@ namespace AzureBlobSearchHelper.Tests
 
             var res = await helper.GetMetaItemAsync(t.Name);
 
+
             Assert.AreEqual("TestString", res.Description);
         }
 

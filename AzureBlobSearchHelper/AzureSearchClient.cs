@@ -16,19 +16,14 @@ namespace AzureBlobSearchHelper
 
         public AzureSearchClient(string searchServiceName, string apiKey, string indexName)
         {
-
             _searchClient = new SearchServiceClient(searchServiceName, new SearchCredentials(apiKey));
             _indexClient = _searchClient.Indexes.GetClient(indexName);
-            
-
         }
 
         public DocumentSearchResponse Search(string searchText)
         {
-
             SearchParameters sp = new SearchParameters() { SearchMode = SearchMode.All };
             return _indexClient.Documents.Search(searchText, sp);
-
         }
 
         public Task<AzureOperationResponse> AsyncRerunIndexer(string indexer)

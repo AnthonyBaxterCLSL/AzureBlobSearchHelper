@@ -16,7 +16,6 @@ namespace AzureBlobSearchHelper
         {
             public Type Type { get; set; }
             public object OriginalValue { get; set; }
-
             public string Value { get; set; }
         }
 
@@ -111,18 +110,13 @@ namespace AzureBlobSearchHelper
 
         public async Task<T> GetMetaItemAsync(string name)
         {
-           
-
             var br = _container.GetBlobReference(name);
-
-
             if (!await br.ExistsAsync())
                 return default(T);
 
             var ret = new T();
             await br.FetchAttributesAsync();
             SetName(ret, name);
-
             foreach (var keyValuePair in br.Metadata)
             {
                 var prop = typeof(T).GetRuntimeProperty(keyValuePair.Key.Remove(0, 5));
@@ -144,7 +138,6 @@ namespace AzureBlobSearchHelper
         {
 
             var br = _container.GetBlobReference(name);
-            ;
             byte[] arr = new byte[br.StreamMinimumReadSizeInBytes];
             var length = await br.DownloadToByteArrayAsync(arr, 0);
             return arr.Where((b, i) => i < length).ToArray();

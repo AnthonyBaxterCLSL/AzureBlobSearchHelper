@@ -21,6 +21,7 @@
 			<dependency id="System.Threading.Tasks" version="4.0.0" />
 			<dependency id="WindowsAzure.Storage" version="6.2.2-preview" />
       <dependency id="Microsoft.Azure.Search" version="0.13.0-preview"/>
+      <dependency id="UnicodeNormalization" version="1.0.1"/>
 	  </group>
       <group targetFramework="win"></group>
       <group targetFramework="wp"></group>
@@ -41,6 +42,7 @@
         <dependency id="System.Threading.Tasks" version="4.0.0" />
         <dependency id="WindowsAzure.Storage" version="6.2.2-preview" />
         <dependency id="Microsoft.Azure.Search" version="0.13.0-preview"/>
+        <dependency id="UnicodeNormalization" version="1.0.1"/>
       </group>
     </dependencies>
   </metadata>

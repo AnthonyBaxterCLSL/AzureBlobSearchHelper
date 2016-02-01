@@ -30,7 +30,7 @@ namespace AzureBlobSearchHelper
 
         public ICloudBlockBlob GetBlockBlobReference(string blobName)
         {
-            return new CloudBlockBlobWrapper( _actualContainer.GetBlockBlobReference                                    (blobName));
+            return new CloudBlockBlobWrapper( _actualContainer.GetBlockBlobReference(blobName));
         }
 
         public ICloudBlob GetBlobReference(string blobName)
