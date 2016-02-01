@@ -98,7 +98,6 @@ namespace AzureBlobSearchHelper.Tests
             var cont = GetMetaContainer(t.Name);
 
 
-
             var helper = new AzureFileStorage<ValidTestObject>(cont.Object,emptyByteFunc);
             await helper.TrySaveItemAsync(t);
 
@@ -124,6 +123,21 @@ namespace AzureBlobSearchHelper.Tests
         {
             var t = new ValidTestObject() {Name = "StringMapTest", Description = "TestString"};
             
+
+            var helper = new AzureFileStorage<ValidTestObject>(GetMetaContainer(t.Name).Object, emptyByteFunc);
+            await helper.TrySaveItemAsync(t);
+
+            var res = await helper.GetMetaItemAsync(t.Name);
+
+
+            Assert.AreEqual("TestString", res.Description);
+        }
+
+        [Test]
+        public async Task WhenRetrievingObject_HasOriginaStringlValueNoDiacritic()
+        {
+            var t = new ValidTestObject() { Name = "StringMapTest", Description = "TêstŠtrïng" };
+
 
             var helper = new AzureFileStorage<ValidTestObject>(GetMetaContainer(t.Name).Object, emptyByteFunc);
             await helper.TrySaveItemAsync(t);
