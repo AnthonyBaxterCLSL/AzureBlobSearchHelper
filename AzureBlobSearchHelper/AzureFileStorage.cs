@@ -4,6 +4,7 @@ using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AzureBlobSearchHelperPackage;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 
@@ -67,7 +68,7 @@ namespace AzureBlobSearchHelper
                     keyValuePair.Value.Value = ((DateTime) keyValuePair.Value.OriginalValue).ToUniversalTime().ToFileTime().ToString();
                 
                 else
-                    keyValuePair.Value.Value = (keyValuePair.Value.OriginalValue ?? "").ToString();
+                    keyValuePair.Value.Value = (keyValuePair.Value.OriginalValue ?? "").ToString().ConvertDiacriticToASCII();
             }
 
             return ret.Where(v => !string.IsNullOrEmpty(v.Value.Value)).ToDictionary(a => a.Key, b => b.Value);
@@ -103,7 +104,14 @@ namespace AzureBlobSearchHelper
             {
                 blockBlob.Metadata[$"meta_{metaItem.Key}"] = metaItem.Value.Value;
             }
-            await blockBlob.SetMetadataAsync();
+            try
+            {
+                await blockBlob.SetMetadataAsync();
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
 
             return true;
         }
@@ -126,6 +134,8 @@ namespace AzureBlobSearchHelper
                     prop.SetValue(ret, keyValuePair.Value);
                 else if (prop.PropertyType == typeof(int))
                     prop.SetValue(ret, int.Parse(keyValuePair.Value));
+                else if (prop.PropertyType == typeof(long))
+                    prop.SetValue(ret, long.Parse(keyValuePair.Value));
                 else if (prop.PropertyType == typeof(DateTime) || prop.PropertyType == typeof(DateTime?))
                     prop.SetValue(ret, DateTime.FromFileTime(long.Parse(keyValuePair.Value)));
                 else if (prop.PropertyType == typeof(bool))
@@ -138,7 +148,9 @@ namespace AzureBlobSearchHelper
         {
 
             var br = _container.GetBlobReference(name);
-            byte[] arr = new byte[br.StreamMinimumReadSizeInBytes];
+            await br.FetchAttributesAsync();
+            
+            byte[] arr = new byte[br.Properties.Length];
             var length = await br.DownloadToByteArrayAsync(arr, 0);
             return arr.Where((b, i) => i < length).ToArray();
         }

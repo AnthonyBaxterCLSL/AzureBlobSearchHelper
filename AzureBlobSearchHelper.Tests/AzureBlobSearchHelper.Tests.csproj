@@ -142,7 +142,7 @@
     <Folder Include="tools\nunit\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\AzureBlobSearchHelperPackage\AzureBlobSearchHelper.csproj">
+    <ProjectReference Include="..\AzureBlobSearchHelper\AzureBlobSearchHelper.csproj">
       <Project>{dbe9e5c3-2577-49fa-884f-4d3b29b1ff0e}</Project>
       <Name>AzureBlobSearchHelper</Name>
     </ProjectReference>

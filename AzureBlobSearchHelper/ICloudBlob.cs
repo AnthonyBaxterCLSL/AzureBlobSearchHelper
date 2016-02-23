@@ -7,7 +7,8 @@ namespace AzureBlobSearchHelper
     public interface ICloudBlob
     {
         Task FetchAttributesAsync();
-        IDictionary<string,string> Metadata { get; }
+        IDictionary<string, string> Metadata { get; }
+        BlobProperties Properties { get; }
         int StreamMinimumReadSizeInBytes { get; set; }
         Task<int> DownloadToByteArrayAsync(byte[] target, int index);
         Task<bool> DeleteIfExistsAsync();
@@ -19,6 +20,7 @@ namespace AzureBlobSearchHelper
     {
 
         private CloudBlob _actualBlob;
+
         public CloudBlobWrapper(CloudBlob actualBlob)
         {
             _actualBlob = actualBlob;
@@ -56,5 +58,7 @@ namespace AzureBlobSearchHelper
             get { return _actualBlob.StreamMinimumReadSizeInBytes; }
             set { _actualBlob.StreamMinimumReadSizeInBytes = value; }
         }
+
+        public BlobProperties Properties => _actualBlob.Properties;
     }
 }

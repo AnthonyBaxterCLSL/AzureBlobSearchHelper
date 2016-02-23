@@ -1,17 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <package>
-  <metadata>
-    <id>AzureBlobSearchHelper</id>
-    <version>0.1.6-preview</version>
-    <title>Helper class for storing meta data and files and running queries against them using azure blob store and search services</title>
-    <authors>Anthony Baxter</authors>
-    <owners>Anthony Baxter</owners>
-    <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Helper for storing files and metadata in blob storage and searching an index created over them</description>
-    <summary>It is referencable by all &gt;=.NET45 clients, including WindowsStore and Phone</summary>
-    <dependencies>
-      <group targetFramework="net">
-	        <dependency id="System.Collections" version="4.0.0" />
+	<metadata>
+		<id>AzureBlobSearchHelper</id>
+		<version>0.2.0-preview</version>
+		<title>Helper class for storing meta data and files and running queries against them using azure blob store and search services</title>
+		<authors>Anthony Baxter</authors>
+		<owners>Anthony Baxter</owners>
+		<requireLicenseAcceptance>false</requireLicenseAcceptance>
+		<description>Helper for storing files and metadata in blob storage and searching an index created over them</description>
+		<summary>It is referencable by all &gt;=.NET45 clients, including WindowsStore and Phone</summary>
+		<dependencies>
+			<group targetFramework="net">
+			<dependency id="System.Collections" version="4.0.0" />
 			<dependency id="System.Diagnostics.Debug" version="4.0.0" />
 			<dependency id="System.Linq" version="4.0.0" />
 			<dependency id="System.Reflection" version="4.0.0" />
@@ -20,30 +20,28 @@
 			<dependency id="System.Runtime" version="4.0.10" />
 			<dependency id="System.Threading.Tasks" version="4.0.0" />
 			<dependency id="WindowsAzure.Storage" version="6.2.2-preview" />
-      <dependency id="Microsoft.Azure.Search" version="0.13.0-preview"/>
-      <dependency id="UnicodeNormalization" version="1.0.1"/>
-	  </group>
-      <group targetFramework="win"></group>
-      <group targetFramework="wp"></group>
-      <group targetFramework="wpa"></group>
-      <group targetFramework="MonoAndroid"></group>
-      <group targetFramework="MonoTouch"></group>
-      <group targetFramework="Xamarin.iOS"></group>
-      <group targetFramework="portable-net45+win8+wpa81+wp8"></group>
-      <group targetFramework="uap"></group>
-      <group targetFramework="dotnet">
-        <dependency id="System.Collections" version="4.0.0" />
-        <dependency id="System.Diagnostics.Debug" version="4.0.0" />
-        <dependency id="System.Linq" version="4.0.0" />
-        <dependency id="System.Reflection" version="4.0.0" />
-        <dependency id="System.Reflection.Extensions" version="4.0.0" />
-        <dependency id="System.Resources.ResourceManager" version="4.0.0" />
-        <dependency id="System.Runtime" version="4.0.10" />
-        <dependency id="System.Threading.Tasks" version="4.0.0" />
-        <dependency id="WindowsAzure.Storage" version="6.2.2-preview" />
-        <dependency id="Microsoft.Azure.Search" version="0.13.0-preview"/>
-        <dependency id="UnicodeNormalization" version="1.0.1"/>
-      </group>
-    </dependencies>
-  </metadata>
+			<dependency id="Microsoft.Azure.Search" version="0.13.0-preview"/>
+		</group>
+			<group targetFramework="win"></group>
+			<group targetFramework="wp"></group>
+			<group targetFramework="wpa"></group>
+			<group targetFramework="MonoAndroid"></group>
+			<group targetFramework="MonoTouch"></group>
+			<group targetFramework="Xamarin.iOS"></group>
+			<group targetFramework="portable-net45+win8+wpa81+wp8"></group>
+			<group targetFramework="uap"></group>
+			<group targetFramework="dotnet">
+				<dependency id="System.Collections" version="4.0.0" />
+				<dependency id="System.Diagnostics.Debug" version="4.0.0" />
+				<dependency id="System.Linq" version="4.0.0" />
+				<dependency id="System.Reflection" version="4.0.0" />
+				<dependency id="System.Reflection.Extensions" version="4.0.0" />
+				<dependency id="System.Resources.ResourceManager" version="4.0.0" />
+				<dependency id="System.Runtime" version="4.0.10" />
+				<dependency id="System.Threading.Tasks" version="4.0.0" />
+				<dependency id="WindowsAzure.Storage" version="6.2.2-preview" />
+				<dependency id="Microsoft.Azure.Search" version="0.13.0-preview"/>
+			</group>
+		</dependencies>
+	</metadata>
 </package>

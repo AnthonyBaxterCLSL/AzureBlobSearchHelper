@@ -42,7 +42,8 @@ namespace AzureBlobSearchHelper.Tests
 
             [MetaData]
             public int SomeInt { get; set; }
-
+            [MetaData]
+            public long SomeLong { get; set; }
             [MetaData]
             public DateTime SomeDateTime { get; set; }
             
@@ -172,6 +173,18 @@ namespace AzureBlobSearchHelper.Tests
             var res = await helper.GetMetaItemAsync(t.Name);
 
             Assert.AreEqual(42, res.SomeInt);
+        }
+
+        [Test]
+        public async Task WhenRetrievingObject_HasOriginalLongValue()
+        {
+            var t = new ValidTestObject() { Name = "IntMapTest", SomeLong = 1215135 };
+            var helper = new AzureFileStorage<ValidTestObject>(GetMetaContainer(t.Name).Object, emptyByteFunc);
+            await helper.TrySaveItemAsync(t);
+
+            var res = await helper.GetMetaItemAsync(t.Name);
+
+            Assert.AreEqual(1215135, res.SomeLong);
         }
 
         [Test]
